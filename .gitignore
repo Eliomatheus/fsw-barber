@@ -1,5 +1,5 @@
 # Ignore build output directories
-.next/
+/.next/
 dist/
 build/
 /out/
@@ -25,8 +25,8 @@ build/
 .env*.local
 
 # Ignore dependencies
-node_modules
-.pnp
+/node_modules
+/.pnp
 .pnp.js
 .yarn/install-state.gz
 
