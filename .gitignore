@@ -3,6 +3,7 @@
 dist/
 build/
 /out/
+.next/types/
 
 # Ignore cache files
 .cache/
