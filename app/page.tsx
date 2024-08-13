@@ -10,7 +10,12 @@ import { db } from "./_lib/prisma"
 import BarbershopItem from "./_components/barbershop-item"
 
 const Home = async () => {
-  const barbershop = await db.barbershop.findMany({})
+  const barbershops = await db.barbershop.findMany({})
+  const popularBarbershops = await db.barbershop.findMany({
+    orderBy: {
+      name: "desc",
+    },
+  })
 
   return (
     <div>
@@ -28,6 +33,70 @@ const Home = async () => {
             <SearchIcon />
           </Button>
         </div>
+
+        {/* BUSCA RÁPIDA */}
+        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          <Button className="gap-2" variant="secondary">
+            <Image
+              alt="Busca Rapida de Cabelo"
+              src="/cabelo.svg"
+              width={16}
+              height={16}
+            />
+            Cabelo
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image
+              alt="Busca Rapida de barba"
+              src="/barba.svg"
+              width={16}
+              height={16}
+            />
+            Barba
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image
+              alt="Busca Rapida de acabamento"
+              src="/acabamento.svg"
+              width={16}
+              height={16}
+            />
+            Acabamento
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image
+              alt="Busca Rapida de acabamento"
+              src="/sombrancelha.svg"
+              width={16}
+              height={16}
+            />
+            Sobrancelha
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image
+              alt="Busca Rapida de acabamento"
+              src="/massagem.svg"
+              width={16}
+              height={16}
+            />
+            Massagem
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image
+              alt="Busca Rapida de acabamento"
+              src="/hidratacao.svg"
+              width={16}
+              height={16}
+            />
+            Hidratação
+          </Button>
+        </div>
+
         {/* IMAGEM */}
         <div className="relative mt-6 h-[150px] w-full">
           <Image
@@ -53,7 +122,7 @@ const Home = async () => {
                 <p className="text-sm">Barbearia FSW</p>
               </div>
             </div>
-            {/* ESQUERDA*/}
+            {/* DIREITA */}
             <div className="flex flex-col items-center justify-center border-l-2 border-solid px-5">
               <p className="text-sm">Agosto</p>
               <p className="text-2xl">12</p>
@@ -61,16 +130,35 @@ const Home = async () => {
             </div>
           </CardContent>
         </Card>
-        {/* AGENDAMENTO*/}
+        {/* RECOMENDADOS */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Recomendados
         </h2>
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
-          {barbershop.map((barbershop) => (
+          {barbershops.map((barbershop) => (
+            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
+        {/* POPULARES */}
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Populares
+        </h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {popularBarbershops.map((barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
       </div>
+
+      <footer>
+        <Card>
+          <CardContent className="px-5 py-6">
+            <p className="text-sm text-gray-400">
+              © 2023 Copyright <span className="font-bold">FSW Barber</span>
+            </p>
+          </CardContent>
+        </Card>
+      </footer>
     </div>
   )
 }
