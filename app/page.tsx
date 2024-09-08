@@ -18,10 +18,13 @@ const Home = async () => {
       name: "desc",
     },
   })
-  const bookings = session?.user
+  const confirmedBookings = session?.user
     ? await db.booking.findMany({
         where: {
           userId: (session?.user as any).id,
+          date: {
+            gte: new Date(),
+          },
         },
         include: {
           service: {
@@ -29,6 +32,9 @@ const Home = async () => {
               barbershop: true,
             },
           },
+        },
+        orderBy: {
+          date: "asc",
         },
       })
     : []
@@ -79,9 +85,13 @@ const Home = async () => {
           />
         </div>
 
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Agendamentos
+        </h2>
+
         {/* AGENDAMENTO*/}
-        <div className="flex overflow-x-auto">
-          {bookings.map((booking) => (
+        <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+          {confirmedBookings.map((booking) => (
             <BookingItem key={booking.id} booking={booking} />
           ))}
         </div>
