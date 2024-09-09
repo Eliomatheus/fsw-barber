@@ -170,7 +170,7 @@ export const BookingItem = ({ booking }: BookingItemProps) => {
 
           <div className="space-y-3">
             {barbershop.phones.map((phone, index) => (
-              <PhoneItem key={phone} phone={phone} />
+              <PhoneItem key={index} phone={phone} />
             ))}
           </div>
         </div>
