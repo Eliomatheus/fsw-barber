@@ -52,16 +52,5 @@
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.ts?(x)": [
-      "eslint --fix",
-      "prettier --write"
-    ]
   }
 }
